@@ -6,8 +6,8 @@ if git config --get remote.origin.url | grep -q "$INPUT_DESTINATION_GIT_URL"; th
 fi
 
 # Setup ssh
-mkdir -p ~/.ssh
-SSH_FILEPATH="~/.ssh/id_ed25519"
+mkdir -p "$HOME/.ssh"
+SSH_FILEPATH="$HOME/.ssh/id_ed25519"
 echo "$INPUT_SSH_PRIVATE_KEY" > "$SSH_FILEPATH"
 chmod 600 "$SSH_FILEPATH"
 
