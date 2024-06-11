@@ -10,6 +10,9 @@ mkdir -p ~/.ssh
 echo "$INPUT_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 
+# Set safe directory
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
 # Rewrite authors
 git filter-branch --env-filter '
 	export GIT_COMMITTER_NAME="$INPUT_ANON_NAME"
