@@ -7,8 +7,9 @@ fi
 
 # Setup ssh
 mkdir -p ~/.ssh
-echo "$INPUT_SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-chmod 600 ~/.ssh/id_rsa
+SSH_FILEPATH="~/.ssh/id_ed25519"
+echo "$INPUT_SSH_PRIVATE_KEY" > "$SSH_FILEPATH"
+chmod 600 "$SSH_FILEPATH"
 
 # Set safe directory
 git config --global --add safe.directory "$GITHUB_WORKSPACE"
@@ -22,7 +23,7 @@ git filter-branch --env-filter '
 	' --tag-name-filter cat -- --branches --tags
 
 # Don't host check
-git config --global core.sshCommand "ssh -i ~/.ssh/id_rsa -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+git config --global core.sshCommand "ssh -i "$SSH_FILEPATH" -o IdentitiesOnly=yes -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
 # Update remote URL
 git remote set-url origin "$INPUT_DESTINATION_GIT_URL"
